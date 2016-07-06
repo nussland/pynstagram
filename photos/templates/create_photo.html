@@ -1,13 +1,15 @@
 {% extends 'layout.html' %}
-{% load bootstrap3 %}
 
 {% block title %}-create_photo{% endblock %}
 
 {% block body %}
 
     <div class="container">
+        <h1>Create</h1>
+        <hr/>
         <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
+            <!--
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" class="form-control" />
@@ -15,7 +17,8 @@
             <div class="form-group">
                 <label for="content">Content</label>
                 <textarea name="content" id="content" class="form-control" rows="3"></textarea>
-            </div>
+            </div>-->
+            {{ form.as_p }}
             <div class="text-center">
                 <button type="submit" class="btn btn-defailt">Save</button>
             </div>

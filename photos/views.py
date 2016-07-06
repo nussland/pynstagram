@@ -1,44 +1,48 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.views.generic.edit import CreateView
 
 
 from .models import Photo
 from .forms import PhotoForm
 
 
+class PhotoCreate(CreateView):
+    model = Photo
+    fields = ('title', 'content', )
+    template_name = 'create_photo.html'
+
+    def form_valid(self, form):
+        new_photo = form.save(commit=False)
+        new_photo.user = self.request.user
+        new_photo.save()
+        return super(PhotoCreate, self).form_valid(form)
+
+create_photo = login_required(PhotoCreate.as_view())
+
+
 @login_required
-def create_photo(request):
-    if request.method == 'POST':
-        form = PhotoForm(request.POST)
-
-        if form.is_vaild() is True:
-            new_photo = form.save(commit=False)
-            new_photo = request.user
-            new_photo.save()
-
-            redirect('photos:view_photo', kwargs={'pk':new_photo.pk})
-    else:
-        return render(request, 'create_photo.html')
-
-
 def delete_photo(request, pk):
-    photo = get_object_or_404(Photo, pk=pk)
+    if request.method == 'POST':
+        photo = get_object_or_404(Photo, pk=pk)
 
-    if photo.user != request.user:
-        raise PermissionDenied
+        if photo.user != request.user:
+            raise PermissionDenied
 
-    photo.delete()
+        photo.delete()
 
-    return redirect(reverse('photos:list_photos'))
-
-
+        return redirect(reverse('photos:list_photos'))
+    else:
+        return HttpResponse()
 
 def view_photo(request, pk):
-    photo = Photo.objects.get(pk=pk)
+    photo = get_object_or_404(Photo, pk=pk)
 
     context = {
         'photo': photo,

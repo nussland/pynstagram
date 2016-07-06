@@ -8,12 +8,24 @@
     {% bootstrap_css %}
 </head>
 <body>
-    <form method="post" action="{% url 'login_url' %}">
-        {% csrf_token %}
-
-        <p>username: {{ form.username }}</p>
-        <p>password: {{ form.password }}</p>
-    </form>
+    <div class="container">
+        <h3>User Login</h3>
+        <form method="post" action="{% url 'login_url' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <div class="form-group">
+                <label for="username">username</label>
+                <input type="text" name="username" id="id_username" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">password</label>
+                <input type="password" name="password" id="id_password" class="form-control" />
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-defailt">Login</button>
+            </div>
+        </form>
+    </div>
 
     {% bootstrap_javascript %}
 </body>

@@ -131,7 +131,6 @@ class PhotoTest(TestCase):
             _form_data['title']
         )
 
-    @unittest.skip('이 장식자를 제거하며 하나씩 테스트를 통과하세요')
     def test_create_photo_for_form_errors(self):
         """뷰 함수를 이용해 게시물을 게시하는 테스트 중 필수 입력 폼 테스트.
         """
@@ -169,7 +168,6 @@ class PhotoTest(TestCase):
         # 게시에 사용한 폼 인스턴스 객체가 템플릿 컨텍스트에 없는지 테스트.
         self.assertNotIn('form', response.context)
 
-    @unittest.skip('이 장식자를 제거하며 하나씩 테스트를 통과하세요')
     def test_view_photo_not_exists(self):
         """존재하지 않는 개별 게시물 페이지에 접속하여 404가 뜨는지 테스트.
         """
@@ -179,7 +177,6 @@ class PhotoTest(TestCase):
         # http status가 404인지 확인.
         self.assertEqual(response.status_code, 404)
 
-    @unittest.skip('이 장식자를 제거하며 하나씩 테스트를 통과하세요')
     def test_delete_photo_on_logout(self):
         """로그아웃 상태에서 개별 게시물을 지우는 테스트.
         """
@@ -203,7 +200,6 @@ class PhotoTest(TestCase):
         # 로그인 URL로 redirect 됐는지 확인.
         self.assertEqual(response.resolver_match.func.__name__, 'login')
 
-    @unittest.skip('이 장식자를 제거하며 하나씩 테스트를 통과하세요')
     def test_delete_photo_without_permm(self):
         """권한 없이 개별 게시물을 지우는 시도하는 테스트.
         """
@@ -228,7 +224,6 @@ class PhotoTest(TestCase):
         # 권한이 없으므로 403 status 응답해야 함.
         self.assertEqual(response.status_code, 403)
 
-    @unittest.skip('이 장식자를 제거하며 하나씩 테스트를 통과하세요')
     def test_delete_photo(self):
         """개별 게시물을 지우는 테스트.
         """

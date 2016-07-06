@@ -5,10 +5,12 @@
 {% block body %}
 
     <div class="container">
+        <h1>View</h1>
+        <hr/>
         <div>Title: {{ photo.title }}</div>
         <div>User: {{ photo.user }} Date: {{ photo.created_at }}</div>
         <div>{{ photo.content }}</div>
-        <hr>
+        <hr/>
         <div>
             <a href="{% url 'photos:list_photos' %}" class="btn btn-default">Go List</a>
             <a href="{% url 'photos:delete_photo' pk=photo.pk %}" class="btn btn-default">Delete</a>
