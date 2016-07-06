@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse
 
 
 from .models import Photo
@@ -23,7 +26,14 @@ def create_photo(request):
 
 
 def delete_photo(request, pk):
-    pass
+    photo = get_object_or_404(Photo, pk=pk)
+
+    if photo.user != request.user:
+        raise PermissionDenied
+
+    photo.delete()
+
+    return redirect(reverse('photos:list_photos'))
 
 
 
@@ -39,7 +49,13 @@ def view_photo(request, pk):
 
 
 def list_photos(request):
-    pass
+    photos = Photo.objects.all()
+
+    context = {
+        'photos': photos,
+    }
+
+    return render(request, 'list_photos.html', context)
 
 
 def create_comment(request, pk):

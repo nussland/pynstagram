@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}-list_photos{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    {% for photo in photos %}
+        <h3><a href="">{{ photo.title }}</a></h3>
+        <p>{{ photo.user }} Date: {{ photo.created_at }}</p>
+        <hr/>
+    {% endfor %}
+    </div>
+
+{% endblock %}

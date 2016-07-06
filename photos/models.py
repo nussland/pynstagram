@@ -10,6 +10,9 @@ class Photo(models.Model):
     created_at = models.DateTimeField(auto_created=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-pk', )
+
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)

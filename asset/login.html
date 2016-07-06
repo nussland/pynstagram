@@ -8,7 +8,7 @@
     {% bootstrap_css %}
 </head>
 <body>
-    <form action="{% url 'login_url' %}" method="post">
+    <form method="post" action="{% url 'login_url' %}">
         {% csrf_token %}
 
         <p>username: {{ form.username }}</p>
