@@ -7,8 +7,9 @@
     <div class="container">
         <h1>View</h1>
         <hr/>
-        <div>Title: {{ photo.title }}</div>
-        <div>User: {{ photo.user }} Date: {{ photo.created_at }}</div>
+        <div><h3>{{ photo.title }}</h3></div>
+        <div>{{ photo.user }} / {{ photo.created_at }}</div>
+        <div><img src="{{ photo.image.url }}"/></div>
         <div>{{ photo.content }}</div>
         <hr/>
         <div>

@@ -131,3 +131,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 LOGIN_URL = '/login/'
 
 LOGOUT_URL = '/logout/'
+
+THUMBNAIL_MAKER_DEBUG = True
+THUMBNAIL_MAKER_FORMATS = {
+    'banner':   ('400x300', {'crop': 'center',
+                             'quality': 90}),
+    '50x50':    ('50x50',   {}),
+    'any_name': ('5x277',   {'padding': True})
+}

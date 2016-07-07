@@ -1,14 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
-#from django.utils.decorators import method_decorator
-
-from django.views.generic import CreateView, ListView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 
 from .models import Photo
@@ -25,45 +20,32 @@ class PhotoCreate(CreateView):
         return super(PhotoCreate, self).form_valid(form)
 
 
-@login_required
-def delete_photo(request, pk):
-    if request.method == 'POST':
-        photo = get_object_or_404(Photo, pk=pk)
+class PhotoDelete(DeleteView):
+    model = Photo
+    template_name = 'delete_photo.html'
+    context_object_name = 'photo'
+    success_url = reverse_lazy('photos:list_photos')
 
-        if photo.user != request.user:
-            raise PermissionDenied
-
-        photo.delete()
-
-        return redirect(reverse('photos:list_photos'))
-    else:
-        return HttpResponse()
+    def get_object(self, queryset=None):
+        obj = super(PhotoDelete, self).get_object()
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
 
 
-def view_photo(request, pk):
-    photo = get_object_or_404(Photo, pk=pk)
+class PhotoView(DetailView):
+    model = Photo
+    template_name = 'view_photo.html'
 
-    context = {
-        'photo': photo,
-    }
-
-    return render(request, 'view_photo.html', context)
+    def get_context_data(self, **kwargs):
+        context = super(PhotoView, self).get_context_data(**kwargs)
+        return context
 
 
 class PhotoList(ListView):
     model = Photo
     context_object_name = 'photos'
     template_name = 'list_photos.html'
-
-
-def list_photos(request):
-    photos = Photo.objects.all()
-
-    context = {
-        'photos': photos,
-    }
-
-    return render(request, 'list_photos.html', context)
 
 
 def create_comment(request, pk):

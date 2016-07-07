@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block title %}-delete_photo{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Delete</h1>
+        <hr/>
+        <form action="" method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ photo }}"?</p>
+            <hr/>
+            <button type="submit" value="Confirm" class="btn btn-danger">Yes</button>
+            <a href="{% url 'photos:view_photo' pk=photo.pk %}"class="btn btn-info">No</a>
+        </form>
+    </div>
+
+{% endblock %}

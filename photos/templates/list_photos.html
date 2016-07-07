@@ -9,9 +9,7 @@
         <hr/>
     {% for photo in photos %}
         <div class="text-center">
-            {% if photo.thumbnail.url != None %}
-                <a href="{% url 'photos:view_photo' pk=photo.pk %}"><img src="{{ photo.thumbnail.url }}" /></a>
-            {% endif %}
+            {{ photo.image.url }}
             <h4>
                 <a href="{% url 'photos:view_photo' pk=photo.pk %}">{{ photo.title }}</a><br/>
                 <small>{{ photo.user }}</small>
