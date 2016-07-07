@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_TOOR = os.path.join(BASE_DIR, 'upload')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 
 LOGIN_URL = '/login/'
 

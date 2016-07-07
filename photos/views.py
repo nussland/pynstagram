@@ -5,7 +5,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.views.generic.edit import CreateView
+from django.http import Http404
+#from django.utils.decorators import method_decorator
+
+from django.views.generic import CreateView, ListView
 
 
 from .models import Photo
@@ -13,16 +16,13 @@ from .models import Photo
 
 class PhotoCreate(CreateView):
     model = Photo
-    fields = ('title', 'content', )
+    fields = ('title', 'content', 'image', )
     template_name = 'create_photo.html'
 
     def form_valid(self, form):
-        new_photo = form.save(commit=False)
-        new_photo.user = self.request.user
-        new_photo.save()
+        form.instance.user = self.request.user
+        form.save()
         return super(PhotoCreate, self).form_valid(form)
-
-create_photo = login_required(PhotoCreate.as_view())
 
 
 @login_required
@@ -39,6 +39,7 @@ def delete_photo(request, pk):
     else:
         return HttpResponse()
 
+
 def view_photo(request, pk):
     photo = get_object_or_404(Photo, pk=pk)
 
@@ -48,6 +49,11 @@ def view_photo(request, pk):
 
     return render(request, 'view_photo.html', context)
 
+
+class PhotoList(ListView):
+    model = Photo
+    context_object_name = 'photos'
+    template_name = 'list_photos.html'
 
 
 def list_photos(request):

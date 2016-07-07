@@ -8,9 +8,14 @@
         <h1>List</h1>
         <hr/>
     {% for photo in photos %}
-        <div>
-            <h4><a href="{% url 'photos:view_photo' pk=photo.pk %}">{{ photo.title }}</a>
-            <small>{{ photo.user }} Date: {{ photo.created_at }}</small></h4>
+        <div class="text-center">
+            {% if photo.thumbnail.url != None %}
+                <a href="{% url 'photos:view_photo' pk=photo.pk %}"><img src="{{ photo.thumbnail.url }}" /></a>
+            {% endif %}
+            <h4>
+                <a href="{% url 'photos:view_photo' pk=photo.pk %}">{{ photo.title }}</a><br/>
+                <small>{{ photo.user }}</small>
+            </h4>
         </div>
         <hr/>
     {% empty %}
