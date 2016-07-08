@@ -3,7 +3,7 @@ import os
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
@@ -13,7 +13,7 @@ class Photo(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     image = models.ImageField(upload_to='%Y/%m/%d', blank=True, null=True)
-    thumb = models.ImageField(upload_to='%Y/%m/%d/thumb', blank=True, null=True)
+    thumb = models.ImageField(upload_to='%Y/%m/%d/thumb', blank=True, null=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -40,6 +40,9 @@ def create_thumbnail(sender, **kwargs):
     instance = kwargs.pop('instance')
 
     if not instance.image:
+        return
+
+    if instance.thumb:
         return
 
     from PIL import Image
@@ -73,3 +76,4 @@ def delete_attached_image(sender, **kwargs):
     instance = kwargs.pop('instance')
     instance.image.delete(save=False)
     instance.thumb.delete(save=False)
+
