@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 from django.http import Http404
+from django.core.exceptions import PermissionDenied
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
@@ -29,7 +30,7 @@ class PhotoDelete(DeleteView):
     def get_object(self, queryset=None):
         obj = super(PhotoDelete, self).get_object()
         if not obj.user == self.request.user:
-            raise Http404
+            raise PermissionDenied
         return obj
 
 

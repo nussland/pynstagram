@@ -16,5 +16,7 @@ urlpatterns = [
 
     url(r'^create_photo/$', login_required(views.PhotoCreate.as_view()), name='create_photo'),
 
-    url(r'^$', views.PhotoList.as_view(), name='list_photos'),
+    url(r'^list_photos/$', views.PhotoList.as_view(), name='list_photos'),
+
+    url(r'^$', views.PhotoList.as_view(), name='default'),
 ]

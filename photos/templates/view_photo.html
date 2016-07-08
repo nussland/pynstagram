@@ -9,7 +9,9 @@
         <hr/>
         <div><h3>{{ photo.title }}</h3></div>
         <div>{{ photo.user }} / {{ photo.created_at }}</div>
+        {% if photo.image != '' %}
         <div><img src="{{ photo.image.url }}"/></div>
+        {% endif %}
         <div>{{ photo.content }}</div>
         <hr/>
         <div>
