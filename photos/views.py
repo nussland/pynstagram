@@ -40,6 +40,7 @@ class PhotoView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PhotoView, self).get_context_data(**kwargs)
+        context['page'] = self.request.GET.get('page', 1)
         return context
 
 
@@ -48,4 +49,3 @@ class PhotoList(ListView):
     context_object_name = 'photos'
     template_name = 'list_photos.html'
     paginate_by = 3
-

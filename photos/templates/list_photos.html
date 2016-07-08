@@ -11,10 +11,10 @@
     {% for photo in photos %}
         <div class="text-center">
             {% if photo.thumb != '' %}
-            <a href="{% url 'photos:view_photo' pk=photo.pk %}"><img src="{{ photo.thumb.url }}" /></a>
+            <a href="{% url 'photos:view_photo' pk=photo.pk %}}?page={{ page_obj.number }}"><img src="{{ photo.thumb.url }}" /></a>
             {% endif %}
             <h4>
-                <a href="{% url 'photos:view_photo' pk=photo.pk %}">{{ photo.title }}</a><br/>
+                <a href="{% url 'photos:view_photo' pk=photo.pk %}?page={{ page_obj.number }}">{{ photo.title }}</a><br/>
                 <small>{{ photo.user }}</small>
             </h4>
         </div>
@@ -26,7 +26,6 @@
     {% endfor %}
     <a href="{% url 'photos:create_photo' %}" class="btn btn-default">Create</a>
     </div><!-- /.container -->
-
     <div class="container">
         <nav class="text-center">
             <ul class="pagination">

@@ -31,11 +31,8 @@ class Photo(models.Model):
 def create_thumbnail(sender, **kwargs):
     instance = kwargs.pop('instance')
 
-    if not instance.image:
-        return
-
-    if instance.thumb:
-        return
+    if not instance.image: return
+    if instance.thumb: return
 
     from PIL import Image
     from io import BytesIO
@@ -68,4 +65,3 @@ def delete_attached_image(sender, **kwargs):
     instance = kwargs.pop('instance')
     instance.image.delete(save=False)
     instance.thumb.delete(save=False)
-

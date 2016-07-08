@@ -9,7 +9,6 @@ app_name = 'photos'
 
 
 urlpatterns = [
-
     url(r'^view_photo/(?P<pk>[0-9]+)/$', views.PhotoView.as_view(), name='view_photo'),
 
     url(r'^delete_photo/(?P<pk>[0-9]+)/$', login_required(views.PhotoDelete.as_view()), name='delete_photo'),

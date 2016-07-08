@@ -15,10 +15,10 @@
         <div>{{ photo.content }}</div>
         <hr/>
         <div>
-            <a href="{% url 'photos:list_photos' %}" class="btn btn-default">Go List</a>
+            <a href="{% url 'photos:list_photos' %}?page={{ page }}" class="btn btn-default">Go List</a>
             <a href="{% url 'photos:create_photo' %}" class="btn btn-default">Create</a>
-            <a href="{% url 'photos:delete_photo' pk=photo.pk %}" class="btn btn-default">Delete</a>
+            <a href="{% url 'photos:delete_photo' pk=photo.pk %}?page={{ page }}" class="btn btn-default">Delete</a>
         </div>
-    </div>
+    </div><!-- /.container -->
 
 {% endblock %}
