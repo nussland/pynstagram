@@ -47,4 +47,5 @@ class PhotoList(ListView):
     model = Photo
     context_object_name = 'photos'
     template_name = 'list_photos.html'
+    paginate_by = 3
 

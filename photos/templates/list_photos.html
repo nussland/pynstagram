@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load bootstrap3 %}
 
 {% block title %}-list_photos{% endblock %}
 
@@ -24,6 +25,38 @@
         </div>
     {% endfor %}
     <a href="{% url 'photos:create_photo' %}" class="btn btn-default">Create</a>
-    </div>
+    </div><!-- /.container -->
+
+    <div class="container">
+        <nav class="text-center">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li>
+                    <a href="?page={{ page_obj.previous_page_number }}"><span>Prev</span></a>
+                </li>
+                {% else %}
+                <li class="disabled">
+                    <a href="#"><span>Prev</span></a>
+                </li>
+                {% endif %}
+
+                {% for page in paginator.page_range %}
+                <li {% if page == page_obj.number %}class="active"{% endif %}>
+                    <a href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li>
+                    <a href="?page={{ page_obj.next_page_number }}"><span>Next</span></a>
+                </li>
+                {% else %}
+                <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
+                    <a href="#"><span>Next</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div><!-- /.container -->
 
 {% endblock %}
