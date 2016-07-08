@@ -9,9 +9,6 @@ app_name = 'photos'
 
 
 urlpatterns = [
-    url(r'^delete_comment/(?P<pk>[0-9]+)/$', views.delete_comment, name='delete_comment'),
-
-    url(r'^create_comment/(?P<pk>[0-9]+)/$', views.create_comment, name='create_comment'),
 
     url(r'^view_photo/(?P<pk>[0-9]+)/$', views.PhotoView.as_view(), name='view_photo'),
 

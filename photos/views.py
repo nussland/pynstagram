@@ -47,10 +47,3 @@ class PhotoList(ListView):
     context_object_name = 'photos'
     template_name = 'list_photos.html'
 
-
-def create_comment(request, pk):
-    pass
-
-
-def delete_comment(request, pk):
-    pass

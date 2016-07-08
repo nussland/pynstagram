@@ -27,14 +27,6 @@ class Photo(models.Model):
         return reverse('photos:view_photo', kwargs={'pk':self.pk})
 
 
-class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    photo = models.ForeignKey(Photo)
-    memo = models.CharField(max_length=250)
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-
-
 @receiver(pre_save, sender=Photo)
 def create_thumbnail(sender, **kwargs):
     instance = kwargs.pop('instance')
