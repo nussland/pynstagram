@@ -11,7 +11,7 @@
     {% for photo in photos %}
         <div class="text-center">
             {% if photo.thumb != '' %}
-            <a href="{% url 'photos:view_photo' pk=photo.pk %}}?page={{ page_obj.number }}"><img src="{{ photo.thumb.url }}" /></a>
+            <a href="{% url 'photos:view_photo' pk=photo.pk %}?page={{ page_obj.number }}"><img src="{{ photo.thumb.url }}" /></a>
             {% endif %}
             <h4>
                 <a href="{% url 'photos:view_photo' pk=photo.pk %}?page={{ page_obj.number }}">{{ photo.title }}</a><br/>
